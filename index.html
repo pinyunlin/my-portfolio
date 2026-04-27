@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chloe Lin | Portfolio</title>
+    <link rel="icon" type="image/png" href="images/Chloe_icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+
+        /* 淺色動態流體背景 */
+        .gradient-bg {
+            background: linear-gradient(-45deg, #f0f7ff, #e0e7ff, #f8fafc, #eff6ff);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 現代感卡片 */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #3b82f6;
+        }
+
+        .ibm-blue-text { color: #0062ff; }
+        .ibm-blue-bg { background-color: #0062ff; }
+
+        .clickable-item { cursor: pointer; transition: all 0.2s; }
+        .clickable-item:hover { color: #0062ff; }
+
+        #photoModal { display: none; backdrop-filter: blur(20px); z-index: 1000; }
+        
+        .slide-preview {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 1px solid #e2e8f0;
+        }
+        .slide-preview img {
+            transition: transform 0.6s ease;
+        }
+        .slide-preview:hover img {
+            transform: scale(1.05);
+        }
+        .slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(59, 130, 246, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .slide-preview:hover .slide-overlay {
+            opacity: 1;
+        }
+
+        .btn-primary {
+            background-color: #0062ff;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #004ecc;
+            box-shadow: 0 4px 12px rgba(0, 98, 255, 0.3);
+        }
+
+        /* 輪播按鈕微調 */
+        .nav-btn {
+            background: #0a225f;
+            color: #fff;
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover {
+            background: #003366;
+            color: #fff;
+            transform: scale(1.1);
+        }
+    </style>
+    <script>
+    function toggleGithubDropdown(event) {
+        event.stopPropagation();
+        const menu = document.getElementById('githubDropdownMenu');
+        menu.classList.toggle('hidden');
+        // 點擊外部自動關閉
+        document.addEventListener('click', closeDropdownOnClickOutside, { once: true });
+    }
+    function closeDropdownOnClickOutside(e) {
+        const menu = document.getElementById('githubDropdownMenu');
+        const btn = document.getElementById('githubDropdownBtn');
+        if (!menu.contains(e.target) && !btn.contains(e.target)) {
+            menu.classList.add('hidden');
+        }
+    }
+    function openGithubLink(type) {
+        if (type === 'frontend') {
+            window.open('https://anonymous.4open.science/r/Wa_Di_Ja-CD43/README.md', '_blank');
+        } else if (type === 'backend') {
+            window.open('https://anonymous.4open.science/r/Wa_Di_Ja_backend-CD12/README.md', '_blank');
+        }
+        document.getElementById('githubDropdownMenu').classList.add('hidden');
+    }
+    </script>
+</head>
+<body class="antialiased text-slate-800">
+
+    <!-- Introduction Section -->
+    <section class="max-w-3xl mx-auto mb-10 animate__animated animate__fadeInDown">
+        <p class="text-xl text-slate-700 leading-relaxed font-semibold bg-white/80 rounded-xl p-6 shadow">
+            我是一名專注於 Full-stack 軟體開發與系統規劃的資管學生。我熱衷於建構具備邏輯性且能解決實際問題的數位方案，曾主導 WaDi+ 高齡者 AI 陪伴系統及 Time Talk 歷史學習系統的架構設計與技術開發，熟練運用 React、Flutter 與 Python 實作 RAG 檢索與語音互動功能。
+        </p>
+    </section>
+
+    <div class="fixed inset-0 z-[-1] gradient-bg"></div>
+
+    <div class="max-w-6xl mx-auto px-6 py-16">
+        
+        <header class="text-center mb-20 animate__animated animate__fadeInDown">
+            <div class="relative inline-block mb-8">
+                <div class="w-36 h-36 md:w-44 md:h-44 rounded-full border-4 border-white p-1 shadow-xl overflow-hidden mx-auto cursor-pointer hover:scale-105 transition-transform" onclick="openModal('images/Me.png', '個人照片', '資管系三年級，專長於系統分析、簡報發表與 AI 應用開發。')">
+                    <img src="images/Me.png" alt="Chloe" class="w-full h-full object-cover rounded-full bg-slate-100">
+                </div>
+                <div class="absolute bottom-2 right-2 bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-2 border-white cursor-pointer" onclick="openModal('images/Me.png', '個人照片', '資管系三年級，專長於系統分析、簡報發表與 AI 應用開發。')">
+                    <i class="fas fa-search-plus text-sm"></i>
+                </div>
+            </div>
+
+            <h1 class="text-5xl font-extrabold tracking-tight mb-3 text-slate-900">品妍 <span class="text-blue-600">Chloe</span></h1>
+            <p class="text-lg text-slate-500 font-medium tracking-[0.2em] uppercase mb-6">Not just a coder, but a problem solver.</p>
+            
+            <div class="flex flex-wrap justify-center gap-8 text-sm font-medium text-slate-600">
+                <span class="flex items-center"><i class="fas fa-university mr-2 text-blue-500"></i>資訊管理系</span>
+                <a href="mailto:linpene17@gmail.com" class="flex items-center hover:underline"><i class="fas fa-envelope mr-2 text-blue-500"></i>linpene17@gmail.com</a>
+                <span class="clickable-item flex items-center" onclick="openModal('images/Toeic.png', '多益證書', '具備基礎的英文聽說讀寫能力，能適應國際化工作環境。')">
+                    <i class="fas fa-certificate mr-2 text-blue-500"></i>TOEIC 證書 (預覽)
+                </span>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-10">
+            
+            <div class="space-y-10 animate__animated animate__fadeInLeft">
+                
+                <section class="glass-card p-7 rounded-2xl">
+                    <h2 class="text-slate-900 font-bold text-lg mb-5 flex items-center">
+                        <span class="w-1.5 h-6 bg-blue-600 mr-3 rounded-full"></span> 專業成就
+                    </h2>
+                    <ul class="text-sm space-y-5">
+                        <li class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                            <p class="font-bold text-blue-700 mb-1 flex items-center"><i class="fas fa-award mr-2"></i>ITAOI 2026
+                            </p>
+                            <p class="text-xs text-blue-600 leading-relaxed font-medium">研討會論文發表（通過錄取）</p>
+                        </li>
+                        <li class="clickable-item flex items-center group" onclick="openModal('https://via.placeholder.com/600x800?text=CyberSecurity+Cert', '資安專業證書', '掌握基礎資安防護知識與風險控管原則。')">
+                               <i class="fas fa-shield-alt mr-3 text-blue-500 group-hover:scale-110 transition"></i> 資安專業證書
+                        </li>
+                        <script>
+                        // 將資安專業證書點擊事件改為顯示 Cybersecurity.jpg
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var cyberCert = Array.from(document.querySelectorAll('.clickable-item.flex.items-center.group')).find(function(item) {
+                                return item.innerText.includes('資安專業證書');
+                            });
+                            if (cyberCert) {
+                                cyberCert.setAttribute('onclick', "openModal('images/Cybersecurity.jpg', '資安專業證書', '掌握基礎資安防護知識與風險控管原則。')");
+                            }
+                        });
+                        </script>
+                        </li>
+                        <li class="clickable-item flex items-center group" onclick="openModal([
+                            'images/tk_2024.JPG',
+                            'images/tk_2025.JPG',
+                            'images/tk_2026.JPG'
+                        ], '跆拳道專業成就', '2024-2026 連續三年參與跆拳道全國跆拳道比賽，並於多場校內外賽事獲獎。隨著黃帶升級到藍帶，也是一路從季軍走到冠軍了呢！')">
+                            <i class="fas fa-dumbbell mr-3 text-blue-500 group-hover:scale-110 transition"></i> 跆拳道（2024-2026 賽事）
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="glass-card p-7 rounded-2xl">
+                    <h2 class="text-slate-900 font-bold text-lg mb-5 flex items-center">
+                        <span class="w-1.5 h-6 bg-blue-600 mr-3 rounded-full"></span> 溝通與領導
+                    </h2>
+                    <ul class="text-sm space-y-5">
+                        <li class="clickable-item flex items-center group" onclick="openModal(['images/camp1.jpg','images/camp2.jpg','images/camp3.jpg','images/camp4.jpg'], '宿營副召經歷', '【統籌與應變】 40 工人與40學員規模之活動，負責預算管控與各組員間的溝通協調，具備的壓力管理與執行力。')">
+                            <i class="fas fa-users-cog mr-3 text-blue-500 group-hover:scale-110 transition"></i> 宿營副召 (40人)
+                        </li>
+                        <li class="clickable-item flex items-center group" onclick="openModal('https://via.placeholder.com/800x600?text=Finance+Record', '跆拳道公關財務經歷', '當財務的主要工作是負責收錢管錢，當公關主要是負責拍照、IG發文以及限動招生宣傳。')">
+                                                        <i class="fas fa-wallet mr-3 text-blue-500 group-hover:scale-110 transition"></i> 跆拳道公關財務
+                                                </li>
+                                                <script>
+                                                // 讓跆拳道公關財務點擊時顯示 Me_2.jpg
+                                                document.addEventListener('DOMContentLoaded', function() {
+                                                    var tkFinance = document.querySelectorAll('.clickable-item.flex.items-center.group');
+                                                    tkFinance.forEach(function(item) {
+                                                        if(item.innerText.includes('跆拳道公關財務')) {
+                                                            item.setAttribute('onclick', "openModal('images/Me_2.jpg', '跆拳道公關財務經歷', '當財務的主要工作是負責收錢管錢，當公關主要是負責拍照、IG發文以及限動招生宣傳。')");
+                                                        }
+                                                    });
+                                                });
+                                                </script>
+                        </li>
+                        <li class="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-xl border border-pink-100">
+                            <p class="text-xs font-bold text-pink-600 mb-2">Taekwondo IG 小編作品</p>
+                            <a href="https://www.instagram.com/fju_taekwondo?igsh=bTVoczdrcW44Y3U0&utm_source=qr" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-pink-500 hover:text-pink-700 flex items-center">
+                                <i class="fab fa-instagram mr-2 text-base"></i>點此查看經營實績
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+
+            <div class="lg:col-span-3 space-y-10 animate__animated animate__fadeInRight">
+                
+                <section class="glass-card p-10 rounded-2xl border-t-4 border-blue-600">
+                    <h2 class="text-2xl font-bold mb-5 text-slate-900">資管背景的全端開發實踐者｜擅長分析與合作</h2>
+                    <p class="text-slate-600 leading-relaxed font-normal mb-4">
+                        我是一名專注於 Full-stack 軟體開發與系統規劃的資管學生。我熱衷於建構具備邏輯性且能解決實際問題的數位方案，曾主導 WaDi+ 高齡者 AI 陪伴系統及 Time Talk 歷史學習系統的架構設計與技術開發，熟練運用 React、Flutter 與 Python 實作 RAG 檢索與語音互動功能。
+                    </p>
+                    <p class="text-slate-600 leading-relaxed font-normal">
+                        在開發過程中，我擅長擔任技術與需求間的橋樑，具備 Git 團隊協作經驗與基礎英語溝通能力。此外，由於早年深厚的美術班背景，這份美學素養成，使我能在技術實作中兼顧 UI/UX 的細節與使用者體驗，確保系統不僅穩定高效，且直覺易用。
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-8 flex items-center text-slate-900">
+                        核心專案與簡報實績 <span class="ml-4 h-[1px] flex-grow bg-slate-200"></span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- WadiJa AI 老人陪伴系統 卡片 -->
+                        <div class="glass-card p-8 rounded-2xl flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="text-xl font-bold text-slate-900">WadiJa AI 老人陪伴系統</h3>
+                                    <span class="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-bold uppercase">Presenter</span>
+                                </div>
+                                <p class="text-xs text-slate-400 mb-5 font-medium">職責：figma所有前端開發、協助者端全端開發、LLM串接、簡報製作人、發表者、部分文件</p>
+                                <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                                    負責產品方案的價值轉譯。設計具備情感溫度的互動介面，確保長者能直覺操作並透過 AI 進行情緒摘要。
+                                </p>
+                                <div class="flex gap-3 mt-2">
+                                    <a href="pdf/Wadi+.pdf" target="_blank" rel="noopener" class="btn-primary px-5 py-2 rounded-lg text-white font-bold text-xs flex items-center gap-2 bg-blue-600 hover:bg-blue-700">
+                                        <i class="fas fa-file-pdf"></i> 查看 WadiJa 文件
+                                    </a>
+                                    <div class="relative">
+                                        <button id="githubDropdownBtn" class="btn-primary px-5 py-2 rounded-lg text-white font-bold text-xs flex items-center gap-2 bg-gray-800 hover:bg-gray-900" onclick="toggleGithubDropdown(event)">
+                                            <i class='fab fa-github'></i> 查看 Github <i class="fas fa-caret-down ml-1"></i>
+                                        </button>
+                                        <div id="githubDropdownMenu" class="hidden absolute left-0 mt-2 w-36 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                                            <button onclick="openGithubLink('frontend')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">前端</button>
+                                            <button onclick="openGithubLink('backend')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">後端</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Time Talk 歷史學習系統 卡片 -->
+                        <div class="glass-card p-8 rounded-2xl flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="text-xl font-bold text-slate-900">Time Talk 歷史學習系統</h3>
+                                    <span class="text-[10px] bg-purple-100 text-purple-700 px-2 py-0.5 rounded font-bold uppercase">RAG Logic</span>
+                                </div>
+                                <p class="text-xs text-slate-400 mb-5 font-medium">職責：LLM 串接、RAG 知識庫優化</p>
+                                <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                                    解決數位教材枯燥問題。透過 RAG 技術打造與AI歷史人物對話（範圍為國中歷史課本）
+                                </p>
+                                <div class="flex gap-3 mt-2">
+                                    <a href="https://anonymous.4open.science/r/TimeTalk/README.md" target="_blank" rel="noopener" class="btn-primary px-5 py-2 rounded-lg text-white font-bold text-xs flex items-center gap-2 bg-gray-800 hover:bg-gray-900">
+                                        <i class="fab fa-github"></i> 查看 Github
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-8 flex items-center text-slate-900">
+                        教育服務與溝通實戰 <span class="ml-4 h-[1px] flex-grow bg-slate-200"></span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="glass-card p-7 rounded-2xl cursor-pointer group" onclick="openModal([
+                            'images/Summer_dream_group.JPG'
+                        ], '英文營隊老師經歷', '2024 年 7 月於 AIESEC in FJU Summer Dream School Project 擔任英文營隊小老師（Home Group Facilitator），主導教案配合與活動引導，協助學員提升英語學習興趣與表達能力。\n\n')">
+                            <div class="flex items-center gap-5 mb-4">
+                                <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center group-hover:bg-blue-600 transition-colors">
+                                    <i class="fas fa-child text-2xl text-blue-600 group-hover:text-white transition-colors"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">英文營隊老師</h4>
+                                    <p class="text-xs text-slate-400">活動引導</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-blue-600 font-bold group-hover:underline">查看照片與詳細說明 →</p>
+                        </div>
+
+                        <div class="glass-card p-7 rounded-2xl cursor-pointer group" onclick="openModal(['images/Remote ＿E-Tutoring.png'], '遠端英文大學伴經歷', '每週參考公版教案並加以修改調整難度，並使用遠端教學教導國一學生。')">
+                            <div class="flex items-center gap-5 mb-4">
+                                <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center group-hover:bg-blue-600 transition-colors">
+                                    <i class="fas fa-chalkboard-teacher text-2xl text-blue-600 group-hover:text-white transition-colors"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">遠端英文大學伴</h4>
+                                    <p class="text-xs text-slate-400">數位遠端教育服務</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-blue-600 font-bold group-hover:underline">查看照片與詳細說明 →</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="glass-card p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 bg-slate-900 text-white border-none shadow-2xl">
+                    <div class="text-center md:text-left">
+                        <h4 class="font-bold text-xl text-blue-400 mb-1">ITAOI 2026
+                             研討會發表錄取</h4>
+                        <p class="text-sm text-slate-400">展現將複雜研究成果結構化為正式論文的嚴謹能力。</p>
+                    </div>
+                    <a href="pdf/ITAOI.pdf" download target="_blank" rel="noopener" class="btn-primary px-8 py-3 rounded-xl text-sm font-bold w-full md:w-auto flex items-center justify-center gap-2">
+                        <i class="fas fa-download"></i> 查看 ITAOI 文件
+                    </a>
+                </section>
+
+            </div>
+        </div>
+
+        <footer class="mt-24 text-center text-slate-400 text-xs font-medium">
+            <p>© 2026 Chloe Pin-Yan </p>
+        </footer>
+    </div>
+
+    <!-- 統一 Modal (升級支援輪播) -->
+    <div id="photoModal" class="fixed inset-0 flex items-center justify-center p-4 bg-slate-900/90" onclick="closeModal()">
+        <div class="relative max-w-5xl w-full animate__animated animate__zoomIn" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h3 id="modalTitle" class="text-2xl font-bold text-white tracking-tight"></h3>
+                    <p id="modalCounter" class="text-blue-400 text-xs mt-1 font-bold"></p>
+                </div>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-white text-4xl transition">&times;</button>
+            </div>
+            <div class="bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row min-h-[400px]">
+                <!-- 照片與導覽區 -->
+                <div class="md:w-3/5 bg-slate-100 flex items-center justify-center relative group/img">
+                    <img id="modalImg" src="" alt="View" class="w-full h-auto object-contain max-h-[70vh]">
+                    <!-- 輪播按鈕與指示器：多圖才渲染 -->
+                    <span id="sliderBtns"></span>
+                    <div id="sliderIndicators" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2"></div>
+                </div>
+                <!-- 文字區 -->
+                <div class="md:w-2/5 p-10 flex flex-col justify-center bg-white border-l border-slate-100">
+                    <div class="mb-6">
+                        <h4 class="text-blue-600 font-bold text-lg mb-3 flex items-center">
+                            <i class="fas fa-info-circle mr-2"></i> 經歷細節
+                        </h4>
+                        <p id="modalDesc" class="text-slate-600 text-sm leading-relaxed"></p>
+                    </div>
+                    <button onclick="closeModal()" class="btn-primary text-white py-3 rounded-xl font-bold text-sm shadow-md transition">關閉預覽</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentImages = [];
+        let currentIndex = 0;
+
+        function openModal(src, title, desc) {
+            const modal = document.getElementById('photoModal');
+            
+            // 判斷 src 是否為陣列
+            if (Array.isArray(src)) {
+                currentImages = src;
+            } else {
+                currentImages = [src];
+            }
+            
+            currentIndex = 0;
+            updateModalContent(title, desc);
+            
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateModalContent(title, desc) {
+            document.getElementById('modalImg').src = currentImages[currentIndex];
+            if (title) document.getElementById('modalTitle').innerText = title;
+            if (desc) document.getElementById('modalDesc').innerText = desc;
+
+            const sliderBtns = document.getElementById('sliderBtns');
+            const sliderIndicators = document.getElementById('sliderIndicators');
+            const counter = document.getElementById('modalCounter');
+            if (currentImages.length > 1) {
+                sliderBtns.innerHTML = `
+                    <button id=\"prevBtn\" onclick=\"changeImage(-1)\" class=\"absolute left-4 w-12 h-12 rounded-full nav-btn text-white flex items-center justify-center group-hover/img:flex\">
+                        <i class=\"fas fa-chevron-left\"></i>
+                    </button>
+                    <button id=\"nextBtn\" onclick=\"changeImage(1)\" class=\"absolute right-4 w-12 h-12 rounded-full nav-btn text-white flex items-center justify-center group-hover/img:flex\">
+                        <i class=\"fas fa-chevron-right\"></i>
+                    </button>
+                `;
+                // 數字標示
+                counter.innerText = `${currentIndex + 1} / ${currentImages.length} 張照片`;
+                // 點點指示器（可點擊）
+                sliderIndicators.innerHTML = Array.from({length: currentImages.length}, (_, i) =>
+                    `<span class=\"w-3 h-3 rounded-full mx-1 transition-all duration-200 cursor-pointer border border-blue-200 ${i === currentIndex ? 'bg-blue-600 scale-125 shadow' : 'bg-slate-300'} inline-block\" onclick=\"goToImage(${i})\"></span>`
+                ).join('');
+            } else {
+                sliderBtns.innerHTML = '';
+                sliderIndicators.innerHTML = '';
+                counter.innerText = "";
+            }
+                // 點點可點擊切換
+                function goToImage(idx) {
+                    currentIndex = idx;
+                    updateModalContent();
+                }
+        }
+
+        function changeImage(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = currentImages.length - 1;
+            if (currentIndex >= currentImages.length) currentIndex = 0;
+            updateModalContent();
+        }
+
+        function closeModal() {
+            document.getElementById('photoModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onkeydown = function(event) {
+            if (event.keyCode === 27) closeModal();
+            if (event.keyCode === 37 && currentImages.length > 1) changeImage(-1);
+            if (event.keyCode === 39 && currentImages.length > 1) changeImage(1);
+        };
+    </script>
+</body>
+</html>
